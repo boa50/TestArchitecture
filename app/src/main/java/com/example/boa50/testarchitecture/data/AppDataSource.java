@@ -12,4 +12,6 @@ import io.reactivex.Flowable;
 public interface AppDataSource {
     Flowable<List<Test>> getTests();
     Flowable<Test> getTestById(String id);
+    Flowable<Test> getFirstTest();
+    void initializeDatabase();
 }

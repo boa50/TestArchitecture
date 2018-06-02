@@ -36,8 +36,7 @@ public class TestFragment extends DaggerFragment implements TestContract.View{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.test_frag, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-        tvText.setText("Teste de alguma coisa");
+        mPresenter.subscribe(this);
 
         return view;
     }
