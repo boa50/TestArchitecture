@@ -1,0 +1,80 @@
+Serve para a injeção de dependências
+Facilita a execução dos testes
+
+@Inject
+Usado no construtor de uma classe para dizer a classe deve ser instanciada
+Usado em campos ele cria instâncias dos campos
+Para criar uma nova instância da classe é preciso instanciar um construtor
+@Inject não pode ser utilizado para:
+    -Interfaces;
+    -Tird-party classes;
+    -Configurable objects.
+
+@Provides
+Fornece a implementação da instância quando o @Inject não puder ser utilizado
+Todos os @Provides devem pertencer a um @Module
+
+@Module
+Só serve para agrupar os @Provides
+
+@Component
+Diz quais Modules devem ser utilizados para determinada instanciação
+É usado pra juntar tudo que é Module
+O nome do arquivo se transforma automaticamente em Dagger+nomedaclasse/interface
+
+@Singleton
+Indica que será criada apenas uma instância pra aquela classe
+
+@Named
+É usado para qualificar quando há a necessidade de instanciar mais de uma classe para funções
+distintas dentro de uma mesma classe
+Deve ser usado no @Provides para ter uma noção de qual classe instanciar
+
+@ContributesAndroidInjector
+Cria os Subcompontents para as Activities dizendo quais Modules elas devem utilizar
+Serve para ser utilizado para substituir os seguintes trechos de código(só quando o Subcomponent
+ou o Builder não tiverem outros métodos ou supertypes):
+    @Subcomponent(modules = ...)
+    public interface YourActivitySubcomponent extends AndroidInjector<YourActivity> {
+      @Subcomponent.Builder
+      public abstract class Builder extends AndroidInjector.Builder<YourActivity> {}
+    }
+
+    @Module(subcomponents = YourActivitySubcomponent.class)
+    abstract class YourActivityModule {
+      @Binds
+      @IntoMap
+      @ActivityKey(YourActivity.class)
+      abstract AndroidInjector.Factory<? extends Activity>
+          bindYourActivityInjectorFactory(YourActivitySubcomponent.Builder builder);
+    }
+
+    @Component(modules = {..., YourActivityModule.class})
+    interface YourApplicationComponent {}
+
+Eu uso o @Module ActivityBindingModule pra isso
+
+Provider<T>
+Cria uma instância da classe a cada chamada get()
+
+Lazy<T>
+Só cria a instância da classe após a primeira chamada get()
+
+DaggerActivity e DaggerFragment
+São classes que precisam ser extendidas para simplificar o processo de injeção das Activities e dos
+Fragments.
+Devem ser utilizadas para aplicações que não tenham uma hierarquia de classes complicada
+
+@Subcomponent
+É utilizado para dividir os graphs da aplicação
+Os Subcomponents podem usar as informações do Component pai
+O Component pai não pode usar as informações dos Subcomponents
+Os Subcomponents não podem utilizar as informações dos Subcomponents irmãos
+
+@Binds
+Serve pra retornar o parâmentro passado como uma nova instância
+Substitui o @Provides para as coisas simples
+Não pode ser usado junto com o @Provides na mesma classe
+
+A Application deve ser colocada no Android Manifest
+Ex: android:name=".TestApplication"
