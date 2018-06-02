@@ -1,0 +1,6 @@
+Unbinder
+Serve para desassociar os bindings realizados dentro do Fragment quando eles não forem mais
+necessários
+
+@BindView
+Associa um objeto a uma view
