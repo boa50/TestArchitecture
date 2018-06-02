@@ -50,6 +50,6 @@ public class TestFragment extends DaggerFragment implements TestContract.View{
 
     @Override
     public void mostrarTest(Test test) {
-
+        tvText.setText(test.getName());
     }
 }

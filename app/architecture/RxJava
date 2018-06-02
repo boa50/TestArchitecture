@@ -1,0 +1,8 @@
+Subscribe e Unsubscribe
+Métodos a serem invocados para controlar melhor a quantidade de memória gasta pela aplicação
+
+CompositeDisposable
+Serve para controlar a quantidade de Disposables exitentes ajuda a controlar a memória
+
+SchedulerProvider
+Auxilia a regular a execução concorrente das consultas
