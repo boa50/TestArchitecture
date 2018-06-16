@@ -30,7 +30,6 @@ public class TestPresenter implements TestContract.Presenter {
     @Override
     public void subscribe(BaseView view) {
         mView = (TestContract.View) view;
-        mAppDataSource.initializeDatabase();
         getFirstTest();
     }
 
